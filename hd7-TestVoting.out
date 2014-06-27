@@ -1,21 +1,51 @@
-Igor
+Running main() from gtest_main.cc
+[==========] Running 21 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 21 tests from Voting
+[ RUN      ] Voting.check_tie1
+[       OK ] Voting.check_tie1 (10 ms)
+[ RUN      ] Voting.check_tie2
+[       OK ] Voting.check_tie2 (2 ms)
+[ RUN      ] Voting.check_tie3
+[       OK ] Voting.check_tie3 (2 ms)
+[ RUN      ] Voting.check_tie4
+[       OK ] Voting.check_tie4 (2 ms)
+[ RUN      ] Voting.check_tie5
+[       OK ] Voting.check_tie5 (2 ms)
+[ RUN      ] Voting.check_tie6
+[       OK ] Voting.check_tie6 (2 ms)
+[ RUN      ] Voting.check_tie7
+[       OK ] Voting.check_tie7 (3 ms)
+[ RUN      ] Voting.check_tie8
+[       OK ] Voting.check_tie8 (2 ms)
+[ RUN      ] Voting.check_tie9
+[       OK ] Voting.check_tie9 (2 ms)
+[ RUN      ] Voting.check_tie10
+[       OK ] Voting.check_tie10 (2 ms)
+[ RUN      ] Voting.check_tie11
+[       OK ] Voting.check_tie11 (2 ms)
+[ RUN      ] Voting.check_tie12
+[       OK ] Voting.check_tie12 (2 ms)
+[ RUN      ] Voting.check_tie13
+[       OK ] Voting.check_tie13 (2 ms)
+[ RUN      ] Voting.check_tie14
+[       OK ] Voting.check_tie14 (2 ms)
+[ RUN      ] Voting.check_tie15
+[       OK ] Voting.check_tie15 (2 ms)
+[ RUN      ] Voting.no_winner1
+[       OK ] Voting.no_winner1 (3 ms)
+[ RUN      ] Voting.no_winner2
+[       OK ] Voting.no_winner2 (2 ms)
+[ RUN      ] Voting.no_winner3
+[       OK ] Voting.no_winner3 (2 ms)
+[ RUN      ] Voting.no_winner4
+[       OK ] Voting.no_winner4 (2 ms)
+[ RUN      ] Voting.no_winner5
+[       OK ] Voting.no_winner5 (2 ms)
+[ RUN      ] Voting.no_winner6
+[       OK ] Voting.no_winner6 (2 ms)
+[----------] 21 tests from Voting (65 ms total)
 
-Jean-Luc
-
-Wolverine
-
-John
-
-Random Name
-
-John
-
-Robert Baratheon
-
-Wolverine
-
-Wolverine
-Batman
-
-Walter White
-
+[----------] Global test environment tear-down
+[==========] 21 tests from 1 test case ran. (93 ms total)
+[  PASSED  ] 21 tests.
