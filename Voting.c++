@@ -11,12 +11,16 @@
 
 using namespace std;
 
+const int MAX_CAND = 20;
+
 // -------------
 // Voting_print_cands
 // -------------
 
 void voting_print_cands(candidate* candidates, int* standings, int number_of_candidates){
 	
+
+	// great debugging tool to show current state of the candidates and standings
 	int count;
 	for(count = 0; count < number_of_candidates; ++count){
 		
@@ -41,10 +45,11 @@ void voting_print_cands(candidate* candidates, int* standings, int number_of_can
 
 void voting_print_winner(int* standings,candidate* candidates) {
 	
+	// in case of end by tie
 	int i;
 	bool first_print = true;
 	if(voting_no_winner(standings) && voting_check_tie){
-		for(i = 0; i < 20; ++i){
+		for(i = 0; i < MAX_CAND; ++i){
 			if(standings[i] != 0 && first_print){
 				cout<<candidates[i].name;
 				first_print = false;
@@ -53,9 +58,11 @@ void voting_print_winner(int* standings,candidate* candidates) {
 				cout<<endl<<candidates[i].name;
 		}
 	} else {
+
+		// in case win by majority
 		int w_index;
 		int greatest = 0;
-		for(i = 0; i < 20; ++i){
+		for(i = 0; i < MAX_CAND; ++i){
 			if(standings[i] > greatest) {
 				w_index = i;
 				greatest = standings[i];
@@ -71,13 +78,15 @@ void voting_get_losers(int* standings, int*& losers){
 	
 	int i;
 	int loser = INT_MAX;
-	for(i = 0; i < 20; ++i){
+
+	// check for lowest non-zero cand and those tied and mark them as loser
+	for(i = 0; i < MAX_CAND; ++i){
 		if( standings[i] != 0 && standings[i] < loser) {
 			loser = standings[i];
 		}
 	}
 
-	for(i = 0; i < 20; ++i){
+	for(i = 0; i < MAX_CAND; ++i){
 		if(loser == standings[i])
 			losers[i] = 1;}}
 
@@ -96,7 +105,7 @@ candidate* voting_distribute_losing_ballots(candidate*& candidates,int loser, in
 		int copy_index = 0;
 		bool start_copy = false;
 
-		// go through each vote of each ballot of the losing-est
+		// go through each vote of each ballot of the loser
 		for(count = 1; count < number_of_candidates; ++count){
 			int vote = l.ballots[i][count];
 			if(!start_copy){
@@ -135,7 +144,8 @@ bool voting_check_tie(int* standings){
 	int i;
 	int mode = 0;
 
-	for(i = 0; i < 20; ++i){
+	// see if there are only duplicate non-zero values for the candidates ballots
+	for(i = 0; i < MAX_CAND; ++i){
 		if(standings[i] != 0){
 			mode = standings[i];
 			break;
@@ -143,7 +153,7 @@ bool voting_check_tie(int* standings){
 	}
 
 	int x;
-	for(x = 0; x < 20; ++x){
+	for(x = 0; x < MAX_CAND; ++x){
 		if(standings[x] != 0 && standings[x] != mode)
 			return false;
 	}
@@ -157,10 +167,12 @@ bool voting_no_winner(int* standings){
 
 	int i;
 	int sum = 0;
-	for(i = 0; i < 20; ++i)
+
+	// see if any candidate has over 50% of ballots
+	for(i = 0; i < MAX_CAND; ++i)
 		sum += standings[i];
 
-	for(i = 0; i < 20; ++i)
+	for(i = 0; i < MAX_CAND; ++i)
 		if(standings[i] > sum/2)
 			return false;
 
@@ -173,8 +185,7 @@ bool voting_no_winner(int* standings){
 void voting_get_winner(candidate* candidates, int* standings, int number_of_candidates, std::ostream& w){
 
 	// keep re-evaluating ballots from losers till tie or winner
-	//voting_print_cands(candidates, standings, number_of_candidates);
-	int l [20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int l [MAX_CAND] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	int* losers = l;
 
 	while(!voting_check_tie(standings) && voting_no_winner(standings)){
@@ -183,8 +194,6 @@ void voting_get_winner(candidate* candidates, int* standings, int number_of_cand
 		for(i = 0; i < 20; ++i)
 			if(losers[i] == 1)
 				voting_distribute_losing_ballots(candidates,i,losers,number_of_candidates,standings);
-	//	voting_print_cands(candidates, standings, number_of_candidates);
-
 	}
 	voting_print_winner(standings, candidates);}
 
@@ -237,9 +246,7 @@ void voting_setup (candidate* candidates, int* standings, std::istream& r, std::
 			candidates[cand_num-1].ballots[next][count] = atoi(vote.c_str());
 		}
 	}
-	voting_get_winner(candidates,standings,number_of_candidates,w);
-}	
-
+	voting_get_winner(candidates,standings,number_of_candidates,w);}
 // -------------
 // Voting_resolve
 // -------------
@@ -253,9 +260,10 @@ void voting_resolve (std::istream& r, std::ostream& w) {
 	
 	int i;
 	for(i = 0; i < number_of_elections; ++i) {
+
 		// gather the candidates names in an array
-		candidate candidates[20] = {};
-		int standings [20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		candidate candidates[MAX_CAND] = {};
+		int standings [MAX_CAND] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		voting_setup(candidates,standings,r,w);
 		if(i != number_of_elections-1)
 			cout << endl << endl;
