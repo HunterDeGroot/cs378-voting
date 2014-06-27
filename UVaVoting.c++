@@ -325,7 +325,9 @@ void voting_resolve (std::istream& r, std::ostream& w) {
 		int standings [20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		voting_setup(candidates,standings,r,w);
 		if(i != number_of_elections-1)
-			cout << endl << endl;}}
+			cout << endl << endl;
+		else
+			cout << endl;}}
 
 /*
 To compile the program:
